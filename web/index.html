@@ -8,11 +8,12 @@ and open the template in the editor.
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <link rel="stylesheet" type="text/css" href="Style.css">
+        <link rel="stylesheet" type="text/css" href="Style.css">
+                 
     </head>
     <body>
-        <h1>Tablero Compartido</h1>
-        <div id="output"></div>   
+        <h1>Tablero Compartido</h1> 
+        <h6 id="output"></h6>
         <table>
             <tr>
                 <td>
@@ -22,6 +23,7 @@ and open the template in the editor.
                 </td>
                 <td>
                     <form name="inputForm">
+                        
                         <table>
                             <tr>
                                 <th>Color</th>
@@ -31,21 +33,21 @@ and open the template in the editor.
                                 <td><input type="radio" name="color" value="#33CC33">Verde</td>                               
                             </tr>
                             <tr hidden>
-                                <th hidden>Forma</th>
+                                
                                 <td><input hidden type="radio" name="shape" value="disc">Circulo</td>
                             </tr>
                             <tr>
-                                <button id ="clear" class="btn danger">Borrar</button>
-                                
+                            <button id = "clickMe" class="waves-effect waves-light btn-large">Borrar</button>
+
                             </tr> 
                         </table>      
                     </form> 
                 </td>
             </tr>
 
-        </table>       
-
+        </table> 
         <script type="text/javascript" src="WebSocket.js"></script>
         <script type="text/javascript" src="pizarron.js"></script>
+
     </body>
 </html>

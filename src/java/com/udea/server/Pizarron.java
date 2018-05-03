@@ -12,12 +12,15 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import javax.json.JsonObject;
+import javax.json.spi.JsonProvider;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import static jdk.nashorn.internal.runtime.Debug.id;
 
 /**
  *
@@ -50,5 +53,5 @@ public class Pizarron {
         peers.remove(peer);
     }
     
-    
+   
 }

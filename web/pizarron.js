@@ -1,10 +1,9 @@
 let canvas = document.getElementById("myCanvas");
+let button = document.getElementById("clickMe");
 let context = canvas.getContext("2d");
 canvas.addEventListener("mousemove", defineImage, false);
 
-let clear = document.getElementById("clear");
-clear.addEventListener("click", clearCanvas, false);
-
+button.addEventListener("click", erase, false);
 //Funcion que toma las coordenadas x y y
 function getCurrentPos(evt) {
     let rect = canvas.getBoundingClientRect();
@@ -23,10 +22,10 @@ function defineImage(evt) {
     for (i = 0; i < document.inputForm.color.length; i++) {
         if (document.inputForm.color[i].checked) {
             var color = document.inputForm.color[i];
+            console.log(color.toString());
             break;
         }
     }
-
     for (i = 0; i < document.inputForm.shape.length; i++) {
         if (document.inputForm.shape[i].checked) {
             var shape = document.inputForm.shape[i];
@@ -60,16 +59,13 @@ function drawImageText(image) {
     }
 
 }
-
-function clearCanvas(evt) {
-    var json = JSON.stringify({
-        "color": '#FFFFFF',
-        "size": 5000,
-        "coords": {
-            "x": 20,
-            "y": 20
-        }
-    });
-    drawImageText(json);
-    sendText(json);
+/**
+ * Este método se encarga de borrar lo que exista en el trablero
+ * @param {type} evt
+ * @returns {undefined}
+ */
+function erase(evt){
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  
+  
 }
