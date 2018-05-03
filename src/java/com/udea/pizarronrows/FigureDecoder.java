@@ -16,7 +16,7 @@ import javax.websocket.EndpointConfig;
 public class FigureDecoder implements Decoder.Text<Figure>{
 
     /**
-     * Este médoto se encarga de retirnar un objeti tipo Figure a partir de un 
+     * Este médoto se encarga de retornar un objeto tipo Figure a partir de un 
      * String de datos que entra como parámetro y su finalidad es tomarlo como 
      * un JsonObject y decodificarlo como un objeto Figure.
      * @param string
