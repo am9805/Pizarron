@@ -9,7 +9,7 @@ and open the template in the editor.
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="Style.css">
-                 
+
     </head>
     <body>
         <h1>Tablero Compartido</h1> 
@@ -23,7 +23,7 @@ and open the template in the editor.
                 </td>
                 <td>
                     <form name="inputForm">
-                        
+
                         <table>
                             <tr>
                                 <th>Color</th>
@@ -33,13 +33,15 @@ and open the template in the editor.
                                 <td><input type="radio" name="color" value="#33CC33">Verde</td>                               
                             </tr>
                             <tr hidden>
-                                
-                                <td><input hidden type="radio" name="shape" value="disc">Circulo</td>
+
+                                <td><input hidden name="shape" value="disc">Circulo</td>
                             </tr>
                             <tr>
-                            <button id = "clickMe" class="waves-effect waves-light btn-large">Borrar</button>
-
-                            </tr> 
+                            <button type = "button" id = "delete" class="waves-effect waves-light btn-large">Borrar</button>
+                            </tr>
+                            <tr>
+                            <button type = "button" id = "save" class="waves-effect waves-light btn-large" >Descargar</button>
+                            </tr>
                         </table>      
                     </form> 
                 </td>

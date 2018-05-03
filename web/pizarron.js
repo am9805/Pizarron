@@ -1,9 +1,12 @@
 let canvas = document.getElementById("myCanvas");
-let button = document.getElementById("clickMe");
+let deletee = document.getElementById("delete");
+let save = document.getElementById("save");
+
 let context = canvas.getContext("2d");
 canvas.addEventListener("mousemove", defineImage, false);
 
-button.addEventListener("click", erase, false);
+deletee.addEventListener("click", erase, false);
+save.addEventListener("click", guardarImagen, false);
 //Funcion que toma las coordenadas x y y
 function getCurrentPos(evt) {
     let rect = canvas.getBoundingClientRect();
@@ -19,9 +22,11 @@ function defineImage(evt) {
     if (evt.buttons !== 1){
         return;
     }
+    
+    var color = document.inputForm.color;
     for (i = 0; i < document.inputForm.color.length; i++) {
         if (document.inputForm.color[i].checked) {
-            var color = document.inputForm.color[i];
+             color = document.inputForm.color[i];
             console.log(color.toString());
             break;
         }
@@ -66,6 +71,25 @@ function drawImageText(image) {
  */
 function erase(evt){
   context.clearRect(0, 0, canvas.width, canvas.height);
-  
-  
+}
+
+/**
+ *Método para guardar una imagen, en esta se obtiene lo previamente dibujado en 
+ * canvas y se descarga bajo el nombre de 'canvas' el tipo de la imagen queda
+ * definido como .png
+ * @param {type} evt
+ * @return {undefined}
+ */
+function guardarImagen(evt){
+    var tipo = "image/png";
+    var imagenData = canvas.toDataURL(tipo);
+    var imagenDescargada = document.createElement('a');
+    imagenDescargada.download = 'myCanvas';
+    imagenDescargada.href = imagenData;
+    imagenDescargada.dataset.downloadurl = [tipo, imagenDescargada.download, 
+        imagenDescargada.href].join(':');
+    document.body.appendChild(imagenDescargada);
+    imagenDescargada.click();
+    document.body.removeChild(imagenDescargada);
+    
 }
