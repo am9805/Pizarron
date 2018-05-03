@@ -1,6 +1,9 @@
 let canvas = document.getElementById("myCanvas");
 let context = canvas.getContext("2d");
-canvas.addEventListener("mouseup", defineImage, false);
+canvas.addEventListener("mousemove", defineImage, false);
+
+let clear = document.getElementById("clear");
+clear.addEventListener("click", clearCanvas, false);
 
 //Funcion que toma las coordenadas x y y
 function getCurrentPos(evt) {
@@ -14,7 +17,9 @@ function getCurrentPos(evt) {
 //Funcion para tomar el color y la forma desde el formulario HTML5
 function defineImage(evt) {
     let currentPos = getCurrentPos(evt);
-
+    if (evt.buttons !== 1){
+        return;
+    }
     for (i = 0; i < document.inputForm.color.length; i++) {
         if (document.inputForm.color[i].checked) {
             var color = document.inputForm.color[i];
@@ -56,6 +61,15 @@ function drawImageText(image) {
 
 }
 
-function erase(){
-    context.clearRect(0, 0, canvas.width, canvas.height);
+function clearCanvas(evt) {
+    var json = JSON.stringify({
+        "color": '#FFFFFF',
+        "size": 5000,
+        "coords": {
+            "x": 20,
+            "y": 20
+        }
+    });
+    drawImageText(json);
+    sendText(json);
 }
