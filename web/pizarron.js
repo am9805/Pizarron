@@ -22,8 +22,6 @@ function getCurrentPos(evt) {
 
 canvas.onmousedown = function (e) {
     isDrawing = true;
-    context.lineWidth = 0;
-    context.lineJoin = context.lineCap = 'round';
     context.moveTo(e.clientX, e.clientY);
 };
 canvas.onmousemove = function (e) {
