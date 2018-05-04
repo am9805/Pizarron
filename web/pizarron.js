@@ -2,6 +2,7 @@ let canvas = document.getElementById("myCanvas");
 let deletee = document.getElementById("delete");
 let save = document.getElementById("save");
 let color = '#2ff455';
+let sizeLine = 5;
 let context = canvas.getContext("2d");
 var isDrawing;
 deletee.addEventListener("click", erase, false);
@@ -23,43 +24,66 @@ function getCurrentPos(evt) {
 canvas.onmousedown = function (e) {
     isDrawing = true;
     context.beginPath();
-    //context.moveTo(e.clientX, e.clientY);
-    context.lineWidth = 0;
-    context.lineJoin = context.lineCap = 'round';
-    
 };
 canvas.onmousemove = function (e) {
     let currentPos = getCurrentPos(e);
     if (isDrawing) {
-        let rect = canvas.getBoundingClientRect();
-        context.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-        context.strokeStyle = color;
-        context.stroke();
-    
-    let json = JSON.stringify({
-        "color": color.value,
-        "coords": {
-            "x": currentPos.x,
-            "y": currentPos.y
-        }
 
-    });
-    drawImageText(json);
-    sendText(json);
+        let json = JSON.stringify({
+            "color": color,
+            "coords": {
+                "x": currentPos.x,
+                "y": currentPos.y
+            },
+            "size": sizeLine,
+            "newDraw": false
+        });
+        drawImageText(json);
+        sendText(json);
     }
+    
 };
 
-canvas.onmouseup = function () {
+canvas.onmouseup = function (evt) {
     isDrawing = false;
+
+    let currentPos = getCurrentPos(evt);
+
+    console.log('se envio nuevo trazo')
+    let json = JSON.stringify({
+            "color": color,
+            "coords": {
+                "x": currentPos.x,
+                "y": currentPos.y
+            },
+            "size": sizeLine,
+            "newDraw": true
+        });
+    sendText(json);
 };
 
-window.onmouseup = function () {
+window.onmouseup = function (evt) {
     isDrawing = false;
+
+    let currentPos = getCurrentPos(evt);
+
+    console.log('se envio nuevo trazo')
+    let json = JSON.stringify({
+            "color": color,
+            "coords": {
+                "x": currentPos.x,
+                "y": currentPos.y
+            },
+            "size": sizeLine,
+            "newDraw": true
+        });
+    sendText(json);
 };
 
 //Funcion para tomar el color y la forma desde el formulario HTML5
 function defineImage(evt) {
     let currentPos = getCurrentPos(evt);
+
     if (evt.buttons !== 1) {
         return;
     }
@@ -79,12 +103,37 @@ function defineImage(evt) {
         }
 
     });
-    let json ;
     sendText(json);
     
 }
 function drawImageText(image) {
     let json = JSON.parse(image);
+    console.log(json);
+
+    if(json.newDraw){
+        console.log('nuevotrazo')
+        context.beginPath();
+        context.lineWidth = json.sizeLine;
+        context.lineJoin = context.lineCap = 'round';
+        
+        const x = json.coords.x;
+        const y = json.coords.y;
+        context.lineTo(x, y);
+        context.strokeStyle = json.color;
+        context.stroke();
+    }
+    else{
+        context.lineWidth = json.sizeLine;
+        context.lineJoin = context.lineCap = 'round';
+        
+        const x = json.coords.x;
+        const y = json.coords.y;
+        context.lineTo(x, y);
+        context.strokeStyle = json.color;
+        context.stroke();
+    }
+
+    
 }
 /**
  * Este método se encarga de borrar lo que exista en el trablero
@@ -93,6 +142,7 @@ function drawImageText(image) {
  */
 function erase(evt) {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    context.restore();
 }
 
 /**
