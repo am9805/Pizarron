@@ -1,9 +1,35 @@
 let canvas = document.getElementById("myCanvas");
 let deletee = document.getElementById("delete");
 let save = document.getElementById("save");
+
+let redButton = document.getElementById("rojo");
+let blueButton = document.getElementById("azul");
+let orangeButton = document.getElementById("naranja");
+let greenButton = document.getElementById("verde");
+
 let context = canvas.getContext("2d");
+let color;
 var isDrawing;
 
+redButton.addEventListener("click", erase, false);
+blueButton.addEventListener("click", erase, false);
+orangeButton.addEventListener("click", erase, false);
+greenButton.addEventListener("click", erase, false);
+
+deletee.addEventListener("click", erase, false);
+
+function setRed(evt)
+    context.strokeStyle = 'red';
+    
+function setBlue(evt)
+    context.strokeStyle = 'blue';
+    
+function setOrange(evt)
+    context.strokeStyle = 'orange';
+
+function setGreen(evt)
+    context.strokeStyle = 'green';
+    
 canvas.onmousedown = function (e) {
     isDrawing = true;
     context.lineWidth = 0;
@@ -14,27 +40,18 @@ canvas.onmousemove = function (e) {
     if (isDrawing) {
         let rect = canvas.getBoundingClientRect();
         context.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-        var color = document.inputForm.color;
-        for (i = 0; i < document.inputForm.color.length; i++) {
-            if (document.inputForm.color[i].checked) {
-                color = document.inputForm.color[i];
-                console.log(color.toString());
-                break;
-            }
-        }
-        color = color.toString();
-        if (color === 'red') {
-            context.strokeStyle = 'red';
-            } 
-            else if (color === 'blue'){
-                context.strokeStyle = 'blue';
-                } 
-                else if(color === 'orange'){
-                    context.strokeStyle = 'orange';    
-                    } 
-                    else if(color === 'green'){
-                        context.strokeStyle = 'green';    
-                        }
+//        if (color === 'red') {
+//            context.strokeStyle = 'red';
+//            } 
+//            else if (color === 'blue'){
+//                context.strokeStyle = 'blue';
+//                } 
+//                else if(color === 'orange'){
+//                    context.strokeStyle = 'orange';    
+//                    } 
+//                    else if(color === 'green'){
+//                        context.strokeStyle = 'green';    
+//                        }
         context.stroke();
     }
 };
@@ -43,7 +60,6 @@ canvas.onmouseup = function () {
     isDrawing = false;
 };
 
-//canvas.addEventListener("mousemove", defineImage, false);
 deletee.addEventListener("click", erase, false);
 save.addEventListener("click", guardarImagen, false);
 //Funcion que toma las coordenadas x y y
