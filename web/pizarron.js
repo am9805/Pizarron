@@ -1,10 +1,48 @@
 let canvas = document.getElementById("myCanvas");
 let deletee = document.getElementById("delete");
 let save = document.getElementById("save");
-
 let context = canvas.getContext("2d");
-canvas.addEventListener("mousemove", defineImage, false);
+var isDrawing;
 
+canvas.onmousedown = function(e) {
+  isDrawing = true;
+  context.lineWidth = 0;
+  context.lineJoin = context.lineCap = 'round';
+
+  context.moveTo(e.clientX, e.clientY);
+};
+canvas.onmousemove = function(e) {
+  if (isDrawing) {
+    let rect = canvas.getBoundingClientRect();
+    context.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    context.strokeStyle = 'green';
+    context.stroke();
+    var color = document.inputForm.color;
+    for (i = 0; i < document.inputForm.color.length; i++) {
+        if (document.inputForm.color[i].checked) {
+             color = document.inputForm.color[i];
+            console.log(color.toString());
+            break;
+        }
+    }
+    switch(color) {
+    case 'red':
+    default:
+        code block
+        break;
+    case 'blue':
+        code block
+        break;
+    case 'orange':
+    case 'green':
+}
+  }
+};
+canvas.onmouseup = function() {
+  isDrawing = false;
+};
+
+//canvas.addEventListener("mousemove", defineImage, false);
 deletee.addEventListener("click", erase, false);
 save.addEventListener("click", guardarImagen, false);
 //Funcion que toma las coordenadas x y y
@@ -22,7 +60,6 @@ function defineImage(evt) {
     if (evt.buttons !== 1){
         return;
     }
-    
     var color = document.inputForm.color;
     for (i = 0; i < document.inputForm.color.length; i++) {
         if (document.inputForm.color[i].checked) {
@@ -51,7 +88,6 @@ function defineImage(evt) {
     sendText(json);
 }
 function drawImageText(image) {
-    console.log("drawImageText");
     let json = JSON.parse(image);
     context.fillStyle = json.color;
     switch (json.shape) {
