@@ -1,65 +1,15 @@
 let canvas = document.getElementById("myCanvas");
 let deletee = document.getElementById("delete");
 let save = document.getElementById("save");
-
-//let redButton = document.getElementById("rojo");
-//let blueButton = document.getElementById("azul");
-//let orangeButton = document.getElementById("naranja");
-//let greenButton = document.getElementById("verde");
-
+let color = '#2ff455';
 let context = canvas.getContext("2d");
-//let color;
 var isDrawing;
-//
-//redButton.addEventListener("click", erase, false);
-//blueButton.addEventListener("click", erase, false);
-//orangeButton.addEventListener("click", erase, false);
-//greenButton.addEventListener("click", erase, false);
-
 deletee.addEventListener("click", erase, false);
 save.addEventListener("click", guardarImagen, false);
-//
-//function setRed(evt)
-//    context.strokeStyle = 'red';
-//    
-//function setBlue(evt)
-//    context.strokeStyle = 'blue';
-//    
-//function setOrange(evt)
-//    context.strokeStyle = 'orange';
-//
-//function setGreen(evt)
-//    context.strokeStyle = 'green';
-//    
-canvas.onmousedown = function (e) {
-    isDrawing = true;
-    context.lineWidth = 0;
-    context.lineJoin = context.lineCap = 'round';
-    context.moveTo(e.clientX, e.clientY);
-};
-canvas.onmousemove = function (e) {
-    if (isDrawing) {
-        let rect = canvas.getBoundingClientRect();
-        context.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-//        if (color === 'red') {
-//            context.strokeStyle = 'red';
-//            } 
-//            else if (color === 'blue'){
-//                context.strokeStyle = 'blue';
-//                } 
-//                else if(color === 'orange'){
-//                    context.strokeStyle = 'orange';    
-//                    } 
-//                    else if(color === 'green'){
-//                        context.strokeStyle = 'green';    
-//                        }
-        context.stroke();
-    }
-};
 
-canvas.onmouseup = function () {
-    isDrawing = false;
-};
+function setColor(col){
+    color = col;
+}
 
 //Funcion que toma las coordenadas x y y
 function getCurrentPos(evt) {
@@ -69,6 +19,41 @@ function getCurrentPos(evt) {
         y: evt.clientY - rect.top
     };
 }
+
+canvas.onmousedown = function (e) {
+    isDrawing = true;
+    context.lineWidth = 0;
+    context.lineJoin = context.lineCap = 'round';
+    context.moveTo(e.clientX, e.clientY);
+};
+canvas.onmousemove = function (e) {
+    let currentPos = getCurrentPos(e);
+    if (isDrawing) {
+        let rect = canvas.getBoundingClientRect();
+        context.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+        context.strokeStyle = color;
+        context.stroke();
+    
+    let json = JSON.stringify({
+        "color": color.value,
+        "coords": {
+            "x": currentPos.x,
+            "y": currentPos.y
+        }
+
+    });
+    drawImageText(json);
+    sendText(json);
+    }
+};
+
+canvas.onmouseup = function () {
+    isDrawing = false;
+};
+
+window.onmouseup = function () {
+    isDrawing = false;
+};
 
 //Funcion para tomar el color y la forma desde el formulario HTML5
 function defineImage(evt) {
@@ -92,21 +77,12 @@ function defineImage(evt) {
         }
 
     });
-    drawImageText(json);
+    let json ;
     sendText(json);
+    
 }
 function drawImageText(image) {
     let json = JSON.parse(image);
-    context.fillStyle = json.color;
-    switch (json.shape) {
-        case "circle":
-        default:
-            context.beginPath();
-            context.arc(json.coords.x, json.coords.y, 30, 2 * Math.PI, 0);
-            context.fill();
-            break;
-    }
-
 }
 /**
  * Este método se encarga de borrar lo que exista en el trablero
