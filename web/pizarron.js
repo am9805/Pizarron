@@ -2,11 +2,19 @@ let canvas = document.getElementById("myCanvas");
 let deletee = document.getElementById("delete");
 let save = document.getElementById("save");
 let color = '#2ff455';
-let sizeLine = 5;
+let sizeLine = 15;
 let context = canvas.getContext("2d");
 var isDrawing;
 deletee.addEventListener("click", erase, false);
 save.addEventListener("click", guardarImagen, false);
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+};
 
 function setColor(col){
     color = col;
@@ -46,10 +54,8 @@ canvas.onmousemove = function (e) {
 
 canvas.onmouseup = function (evt) {
     isDrawing = false;
-
     let currentPos = getCurrentPos(evt);
-
-    console.log('se envio nuevo trazo')
+    console.log('se envio nuevo trazo');
     let json = JSON.stringify({
             "color": color,
             "coords": {
@@ -67,7 +73,7 @@ window.onmouseup = function (evt) {
 
     let currentPos = getCurrentPos(evt);
 
-    console.log('se envio nuevo trazo')
+    console.log('se envio nuevo trazo');
     let json = JSON.stringify({
             "color": color,
             "coords": {
@@ -80,38 +86,12 @@ window.onmouseup = function (evt) {
     sendText(json);
 };
 
-//Funcion para tomar el color y la forma desde el formulario HTML5
-function defineImage(evt) {
-    let currentPos = getCurrentPos(evt);
-
-    if (evt.buttons !== 1) {
-        return;
-    }
-    var color = document.inputForm.color;
-    for (i = 0; i < document.inputForm.color.length; i++) {
-        if (document.inputForm.color[i].checked) {
-            color = document.inputForm.color[i];
-            console.log(color.toString());
-            break;
-        }
-    }
-    let json = JSON.stringify({
-        "color": color.value,
-        "coords": {
-            "x": currentPos.x,
-            "y": currentPos.y
-        }
-
-    });
-    sendText(json);
-    
-}
 function drawImageText(image) {
     let json = JSON.parse(image);
     console.log(json);
 
     if(json.newDraw){
-        console.log('nuevotrazo')
+        console.log('nuevotrazo');
         context.beginPath();
         context.lineWidth = json.sizeLine;
         context.lineJoin = context.lineCap = 'round';
@@ -135,6 +115,7 @@ function drawImageText(image) {
 
     
 }
+
 /**
  * Este método se encarga de borrar lo que exista en el trablero
  * @param {type} evt
