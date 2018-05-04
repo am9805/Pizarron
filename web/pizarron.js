@@ -2,34 +2,35 @@ let canvas = document.getElementById("myCanvas");
 let deletee = document.getElementById("delete");
 let save = document.getElementById("save");
 
-let redButton = document.getElementById("rojo");
-let blueButton = document.getElementById("azul");
-let orangeButton = document.getElementById("naranja");
-let greenButton = document.getElementById("verde");
+//let redButton = document.getElementById("rojo");
+//let blueButton = document.getElementById("azul");
+//let orangeButton = document.getElementById("naranja");
+//let greenButton = document.getElementById("verde");
 
 let context = canvas.getContext("2d");
-let color;
+//let color;
 var isDrawing;
-
-redButton.addEventListener("click", erase, false);
-blueButton.addEventListener("click", erase, false);
-orangeButton.addEventListener("click", erase, false);
-greenButton.addEventListener("click", erase, false);
+//
+//redButton.addEventListener("click", erase, false);
+//blueButton.addEventListener("click", erase, false);
+//orangeButton.addEventListener("click", erase, false);
+//greenButton.addEventListener("click", erase, false);
 
 deletee.addEventListener("click", erase, false);
-
-function setRed(evt)
-    context.strokeStyle = 'red';
-    
-function setBlue(evt)
-    context.strokeStyle = 'blue';
-    
-function setOrange(evt)
-    context.strokeStyle = 'orange';
-
-function setGreen(evt)
-    context.strokeStyle = 'green';
-    
+save.addEventListener("click", guardarImagen, false);
+//
+//function setRed(evt)
+//    context.strokeStyle = 'red';
+//    
+//function setBlue(evt)
+//    context.strokeStyle = 'blue';
+//    
+//function setOrange(evt)
+//    context.strokeStyle = 'orange';
+//
+//function setGreen(evt)
+//    context.strokeStyle = 'green';
+//    
 canvas.onmousedown = function (e) {
     isDrawing = true;
     context.lineWidth = 0;
@@ -60,8 +61,6 @@ canvas.onmouseup = function () {
     isDrawing = false;
 };
 
-deletee.addEventListener("click", erase, false);
-save.addEventListener("click", guardarImagen, false);
 //Funcion que toma las coordenadas x y y
 function getCurrentPos(evt) {
     let rect = canvas.getBoundingClientRect();
