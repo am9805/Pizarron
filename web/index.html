@@ -14,45 +14,31 @@ and open the template in the editor.
     <body>
         <h1>Tablero Compartido</h1> 
         <h6 id="output"></h6>
-        
+
         <table>
             <tr>
                 <td>
                     <button class="btn-paleta" 
-                            style="background-color: #04B4AE"
-                            onclick="setColor('#04B4AE')"></button>
+                            style="background-color: #FF0000"
+                            onclick="setColor('#FF0000')"></button>
                 </td>
                 <td>
                     <button class="btn-paleta" 
-                            style="background-color: #8A0829"
-                            onclick="setColor('#8A0829')"></button>
+                            style="background-color: #0000FF"
+                            onclick="setColor('#0000FF')"></button>
                 </td>
                 <td>
                     <button class="btn-paleta" 
-                            style="background-color: #2ff034"
-                            onclick="setColor('#ffffff')"></button>
+                            style="background-color: #FF9900"
+                            onclick="setColor('#FF9900')"></button>
+                </td>
+                <td>
+                    <button class="btn-paleta" 
+                            style="background-color: #33CC33"
+                            onclick="setColor('#33CC33')"></button>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <button class="btn-paleta" 
-                            style="background-color: #2ff034"
-                            onclick="setColor('#ffffff')"></button>
-                </td>
-                <td>
-                    <button class="btn-paleta" 
-                            style="background-color: #2ff034"
-                            onclick="setColor('#ffffff')"></button>
-                </td>
-                <td>
-                    <button class="btn-paleta" 
-                            style="background-color: #2ff034"
-                            onclick="setColor('#ffffff')"></button>
-                </td>
-            </tr>
-
         </table>
-        
         <table>
             <tr>
                 <td>
@@ -64,36 +50,24 @@ and open the template in the editor.
                     <form name="inputForm">
 
                         <table>
-                            <tr>
-                                <th>Color</th>
-                                <td><input type="radio" name="color" value="#FF0000" checked="true">Rojo</td>
-                                <td><input type="radio" name="color" value="#0000FF">Azul</td>
-                                <td><input type="radio" name="color" value="#FF9900">Naranja</td>
-                                <td><input type="radio" name="color" value="#33CC33">Verde</td>                               
-                            </tr>
-                            <tr hidden>
+                            <td>
+                                <button type = "button" id = "delete" class="btn-paleta">Borrar</button>
+                            </td>
+                            <td>
+                                <button type = "button" id = "save" class="btn-paleta">Descargar</button>
+                            </td>
+                            <br>
+                            <div class="slidecontainer">
+                                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                                </table>      
+                                </form> 
+                                </td>
+                                </tr>
+                                </table>
+                            </div>
 
-                                <td><input hidden name="shape" value="disc">Circulo</td>
-                            </tr>
-                            <tr>
-                            <button type = "button" id = "delete" class="waves-effect waves-light btn-large">Borrar</button>
-                            </tr>
-                            <tr>
-                            <button type = "button" id = "save" class="waves-effect waves-light btn-large" >Descargar</button>
-                            </tr>
-                        </table>      
-                    </form> 
-                </td>
-            </tr>
-        </table>
-        <h1>Round Range Slider</h1>
-    <div class="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-  <p>Value: <span id="demo"></span></p>
-</div>
+                            <script type="text/javascript" src="WebSocket.js"></script>
+                            <script type="text/javascript" src="pizarron.js"></script>
 
-        <script type="text/javascript" src="WebSocket.js"></script>
-        <script type="text/javascript" src="pizarron.js"></script>
-        
-    </body>
-</html>
+                            </body>
+                            </html>
