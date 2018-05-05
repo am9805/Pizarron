@@ -4,16 +4,14 @@ let save = document.getElementById("save");
 let color = '#2ff455';
 let sizeLine = 15;
 let context = canvas.getContext("2d");
-var isDrawing;
+let isDrawing;
+let slider = document.getElementById("myRange");
+let salida = document.getElementById("demo");
 deletee.addEventListener("click", erase, false);
 save.addEventListener("click", guardarImagen, false);
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
-
 
 slider.oninput = function() {
-  output.innerHTML = this.value;
+  salida.innerHTML = this.value;
 };
 
 function setColor(col){
@@ -29,23 +27,27 @@ function getCurrentPos(evt) {
     };
 }
 
-canvas.onmousedown = function (e) {
-    isDrawing = true;
-    context.beginPath();
-};
-canvas.onmousemove = function (e) {
-    let currentPos = getCurrentPos(e);
-    if (isDrawing) {
-
-        let json = JSON.stringify({
-            "color": color,
+function setJson(evt, newTrazo){
+    let currentPos = getCurrentPos(evt);
+    let json = JSON.stringify({
+        "color": color,
             "coords": {
                 "x": currentPos.x,
                 "y": currentPos.y
             },
             "size": sizeLine,
-            "newDraw": false
-        });
+            "newDraw": newTrazo
+    });
+    return json;
+}
+
+canvas.onmousedown = function (e) {
+    isDrawing = true;
+    context.beginPath();
+};
+canvas.onmousemove = function (e) {
+    if (isDrawing) {
+        let json = setJson(e,false);
         drawImageText(json);
         sendText(json);
     }
@@ -54,35 +56,16 @@ canvas.onmousemove = function (e) {
 
 canvas.onmouseup = function (evt) {
     isDrawing = false;
-    let currentPos = getCurrentPos(evt);
+//    let currentPos = getCurrentPos(evt);
     console.log('se envio nuevo trazo');
-    let json = JSON.stringify({
-            "color": color,
-            "coords": {
-                "x": currentPos.x,
-                "y": currentPos.y
-            },
-            "size": sizeLine,
-            "newDraw": true
-        });
+    let json = setJson(evt,true);
     sendText(json);
 };
 
 window.onmouseup = function (evt) {
     isDrawing = false;
-
-    let currentPos = getCurrentPos(evt);
-
     console.log('se envio nuevo trazo');
-    let json = JSON.stringify({
-            "color": color,
-            "coords": {
-                "x": currentPos.x,
-                "y": currentPos.y
-            },
-            "size": sizeLine,
-            "newDraw": true
-        });
+    let json = setJson(evt, true);
     sendText(json);
 };
 
@@ -91,11 +74,10 @@ function drawImageText(image) {
     console.log(json);
 
     if(json.newDraw){
-        console.log('nuevotrazo');
+        console.log('Nuevo trazo');
         context.beginPath();
         context.lineWidth = json.sizeLine;
         context.lineJoin = context.lineCap = 'round';
-        
         const x = json.coords.x;
         const y = json.coords.y;
         context.lineTo(x, y);
@@ -105,7 +87,6 @@ function drawImageText(image) {
     else{
         context.lineWidth = json.sizeLine;
         context.lineJoin = context.lineCap = 'round';
-        
         const x = json.coords.x;
         const y = json.coords.y;
         context.lineTo(x, y);
