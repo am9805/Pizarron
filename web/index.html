@@ -6,11 +6,64 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="Style.css">
+
     </head>
-    <body>
-        <div>TODO write content</div>
+        <body>
+            <h1>Tablero Compartido</h1> 
+            <h6 id="output"></h6>
+            <table>
+                <tr>
+                    <td>
+                        <button class="btn-paleta" 
+                            style="background-color: #FF0000"
+                            onclick="setColor('#FF0000')"></button>
+                    </td>
+                    <td>
+                        <button class="btn-paleta" 
+                            style="background-color: #0000FF"
+                            onclick="setColor('#0000FF')"></button>
+                    </td>
+                    <td>
+                        <button class="btn-paleta" 
+                            style="background-color: #FF9900"
+                            onclick="setColor('#FF9900')"></button>
+                    </td>
+                    <td>
+                        <button class="btn-paleta" 
+                                style="background-color: #33CC33"
+                                onclick="setColor('#33CC33')"></button>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <canvas id="myCanvas" width="900" height="500" 
+                                style="border:1px solid #000000;">   
+                        </canvas>               
+                    </td>
+                        <td>
+                            <form name="inputForm">
+                                <table>
+                                    <td>
+                                        <button type = "button" id = "delete" class="btn-paleta">Borrar</button>
+                                    </td>
+                                    <td>
+                                        <button type = "button" id = "save" class="btn-paleta">Descargar</button>
+                                    </td>
+                                    <br>
+                                        <div class="slidecontainer">
+                                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                                </table>      
+                            </form> 
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        <script type="text/javascript" src="WebSocket.js"></script>
+        <script type="text/javascript" src="pizarron.js"></script>
     </body>
 </html>
