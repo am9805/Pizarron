@@ -1,9 +1,9 @@
 var wsUri = "ws://" + document.location.host + document.location.pathname + "echo";
 var websocket = new WebSocket(wsUri);
 
-websocket.onopen=function(evt){OnOpen(evt);};
-websocket.onmessage=function(evt){OnMessage(evt);};
-websocket.onerror=function(evt){OnError(evt);};
+websocket.onopen=function(evt){OnOpen(evt)};
+websocket.onmessage=function(evt){OnMessage(evt)};
+websocket.onerror=function(evt){OnError(evt)};
 
 var output = document.getElementById('output');
 
