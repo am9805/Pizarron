@@ -2,16 +2,17 @@ let canvas = document.getElementById("myCanvas");
 let deletee = document.getElementById("delete");
 let save = document.getElementById("save");
 let color = '#2ff455';
-let sizeLine = 15;
 let context = canvas.getContext("2d");
 let isDrawing;
 let slider = document.getElementById("myRange");
 let salida = document.getElementById("demo");
+let sizeLine = 15;
 deletee.addEventListener("click", erase, false);
 save.addEventListener("click", guardarImagen, false);
 
 slider.oninput = function() {
   salida.innerHTML = this.value;
+  sizeLine = this.value;
 };
 
 function setColor(col){
@@ -76,7 +77,7 @@ function drawImageText(image) {
     if(json.newDraw){
         console.log('Nuevo trazo');
         context.beginPath();
-        context.lineWidth = json.sizeLine;
+        context.lineWidth = json.size;
         context.lineJoin = context.lineCap = 'round';
         const x = json.coords.x;
         const y = json.coords.y;
@@ -85,7 +86,7 @@ function drawImageText(image) {
         context.stroke();
     }
     else{
-        context.lineWidth = json.sizeLine;
+        context.lineWidth = json.size;
         context.lineJoin = context.lineCap = 'round';
         const x = json.coords.x;
         const y = json.coords.y;
